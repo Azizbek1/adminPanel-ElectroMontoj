@@ -1,5 +1,5 @@
 export const API_URL = `${import.meta.env.VITE_APP_BASE_URL}/api`;
-export const getUsersUrl = (string: string) => `/user${string}`;
+export const getUsersUrl = (string: string) => `/user/login`;
 // Menu
 export const getMenuUrl = (string: string) => `/menus/header${string}`;
 //Slide

@@ -1,8 +1,9 @@
 import api from "../../api";
+import { API_URL } from "../../api/api.config";
 export const AuthService = {
   async login(data: any) {
     const response = await api.post(
-      `https://27.u6964.xvest3.ru/api/user/login`,
+      `${API_URL}/user/login`,
       data
     );
     return response;

@@ -1,8 +1,8 @@
-import { Suspense } from "react";
+import React, { Suspense } from "react";
 import { Spinner } from "./components";
 import { Route, Routes } from "react-router-dom";
 import LayoutMain from "./layout";
-import MainPage from "./pages/MainPage";
+const MainPage = React.lazy(() => import("./pages/MainPage"));
 import { PrivateRoute, PublicRoute } from "./routes";
 import useAppSelector from "./hooks/useAppSelector";
 function App() {

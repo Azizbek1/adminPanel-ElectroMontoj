@@ -12,9 +12,9 @@ const api = axios.create({
 
 api.interceptors.request.use(
   (config: any) => {
-    const session = getLocalStorage('user-session');
-    config.headers['Accept'] = "application/json";
-    config.headers['user-session'] = session;
+    const session = getLocalStorage(import.meta.env.VITE_APP_SESSION_KEY);
+    config.headers[import.meta.env.VITE_APP_ACCEPT] = "application/json";
+    config.headers[import.meta.env.VITE_APP_SESSION_KEY] = session;
     return config;
   },
   (error) => {
@@ -25,8 +25,8 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => {
     const { headers } = response;
-    const session = headers['user-session'];
-    if (session) setLocalStorage('user-session', session);
+    const session = headers[import.meta.env.VITE_APP_SESSION_KEY];
+    if (session) setLocalStorage(import.meta.env.VITE_APP_SESSION_KEY, session);
     return response;
   },
   (err) => {

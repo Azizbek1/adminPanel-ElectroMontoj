@@ -1,3 +1,5 @@
-import Spinner from './Spinner';
+import Spinner from "./Spinner";
+import { Userscolumns } from "./Table/Columns/index";
+import { UploadImage } from './FileUpload';
 
-export { Spinner };
+export { Spinner, Userscolumns, UploadImage };
