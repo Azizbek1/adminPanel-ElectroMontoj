@@ -1,12 +1,12 @@
-import MainPage from "../pages/MainPage";
+import SiginPage from "../pages/SiginPage";
 import { IRoutes } from "../types/Types.Route";
 
 
 const PublicRoute : IRoutes[] = [
     {
         path: "/",
-        component: <MainPage/>,
-        key: "mainpage"
+        component: <SiginPage/>,
+        key: "signpage"
     }
 ];
 
