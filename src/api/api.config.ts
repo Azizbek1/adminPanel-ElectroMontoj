@@ -11,6 +11,6 @@ export const getPortUrl = (string: string) => `/main/portfolio${string}`;
 //About
 export const getAboutUrl = (string: string) => `/main/about${string}`;
 //Uslugi
-export const getUslugiUrl = (string: string) => `/main/trust${string}`;
+export const getUslugiUrl = (string: string) => `/main/service${string}`;
 //Servises
 export const getServisgiUrl = (string: string) => `/main/service${string}`;

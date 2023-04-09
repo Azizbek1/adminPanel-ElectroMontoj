@@ -7,11 +7,12 @@ import store from "./store";
 import GlobalStyle from "./styles/GlobalStyle";
 import { queryClient } from "./settings/ReactQuery/ReactQuerySettings";
 import { QueryClientProvider } from "react-query";
-
+import ReduxToastrLib from "react-redux-toastr";
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <BrowserRouter>
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
+        <ReduxToastrLib />
         <GlobalStyle>
           <App />
         </GlobalStyle>
