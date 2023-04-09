@@ -35,6 +35,7 @@ const SiginPage = () => {
   );
 
   const onSubmit: SubmitHandler<ISignInForm> = (data) => {
+    mutateAsync(data)
     reset();
   };
 
