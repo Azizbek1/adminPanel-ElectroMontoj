@@ -1,22 +1,18 @@
 import { LoadingButton } from "@mui/lab";
-import { TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import { ReactElement } from "react";
-import {
-  Controller,
-  useForm,
-  useFormState,
-} from "react-hook-form";
+import { Controller, useForm, useFormState } from "react-hook-form";
 import { useMutation, useQuery } from "react-query";
 import { toastr } from "react-redux-toastr";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { stripHtml } from 'string-strip-html';
+import { stripHtml } from "string-strip-html";
 import { toastError } from "../../../settings/ToastReact/ToastReact";
 import { UslugiService } from "../../../services/uslugi/uslugi.service";
 import TextEditor from "../../../components/TextEditor/TextEditor";
 import { UploadImage } from "../../../components";
 
-function ServisesEditPage(): ReactElement {
+function UslugiEditPage(): ReactElement {
   const { handleSubmit, control, reset } = useForm<any>();
   const { id } = useParams();
   const navigate = useNavigate();
@@ -50,6 +46,7 @@ function ServisesEditPage(): ReactElement {
     const { name, file, text } = data;
     await mutateAsync({ name, file, text, show: true });
   };
+  const goBack = () => navigate(-1);
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -74,7 +71,12 @@ function ServisesEditPage(): ReactElement {
           name="text"
           control={control}
           render={({ field: { value, onChange }, fieldState: { error } }) => (
-            <TextEditor onChange={onChange} error={error} value={value || data?.data?.data.text} placeholder="Editor" />
+            <TextEditor
+              onChange={onChange}
+              error={error}
+              value={value || data?.data?.data.text}
+              placeholder="Editor"
+            />
           )}
           rules={{
             validate: {
@@ -95,7 +97,7 @@ function ServisesEditPage(): ReactElement {
           src={data?.data.data.file}
           alt="png"
           className=""
-          style={{ borderRadius: "50%", width: "50px" }}
+          style={{ borderRadius: "50%", width: "100px", marginTop: "20px" }}
         />
         <LoadingButton
           type="submit"
@@ -109,7 +111,12 @@ function ServisesEditPage(): ReactElement {
           Редактировать
         </LoadingButton>
       </form>
+      <div style={{marginTop: "10px"}}>
+        <Button variant="outlined" color="error" onClick={goBack}>
+          Назад
+        </Button>
+      </div>
     </div>
   );
 }
-export default ServisesEditPage;
+export default UslugiEditPage;
