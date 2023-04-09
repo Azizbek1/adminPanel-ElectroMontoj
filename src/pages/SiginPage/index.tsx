@@ -13,6 +13,8 @@ import { useMutation } from "react-query";
 import { AuthService } from "../../services/auth/auth.service";
 import { toastError } from "../../settings/ToastReact/ToastReact";
 import { toastr } from "react-redux-toastr";
+import { setIsAuth, setIsStatus } from "../../store/Dispatch";
+import { setLocalStorage } from "../../settings/localstorage/localStorage";
 
 const SiginPage = () => {
   /* ===== React-hook-form ===== */
@@ -36,6 +38,10 @@ const SiginPage = () => {
 
   const onSubmit: SubmitHandler<ISignInForm> = (data) => {
     mutateAsync(data)
+    setIsAuth('admin')
+    setIsStatus(true)
+    setLocalStorage('isAuth', 'admin')
+    setLocalStorage('status', true)
     reset();
   };
 
