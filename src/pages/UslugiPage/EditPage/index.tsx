@@ -74,7 +74,7 @@ function ServisesEditPage(): ReactElement {
           name="text"
           control={control}
           render={({ field: { value, onChange }, fieldState: { error } }) => (
-            <TextEditor onChange={onChange} error={error} value={value || data?.data?.data.text} />
+            <TextEditor onChange={onChange} error={error} value={value || data?.data?.data.text} placeholder="Editor" />
           )}
           rules={{
             validate: {
