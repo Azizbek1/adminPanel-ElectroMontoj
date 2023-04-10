@@ -153,7 +153,7 @@ function NewsPage({}: Props): ReactElement {
           )}
           rules={{
             validate: {
-              required: (v) =>
+              required: (v: any) =>
                 (v && stripHtml(v).result.length > 0) ||
                 "Description is required!",
             },

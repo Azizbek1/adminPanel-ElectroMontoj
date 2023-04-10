@@ -26,5 +26,5 @@ type TypeEditorPropsField = EditorProps & IFieldProps
 
 export interface ITextEditor extends Omit<TypeEditorPropsField, 'editorState'> {
 	onChange: (...event: any[]) => void
-	value: string
+	value: any
 }

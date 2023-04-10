@@ -19,7 +19,6 @@ import { toastError } from "../../settings/ToastReact/ToastReact";
 import { UploadImage } from "../../components";
 import TextEditor from "../../components/TextEditor/TextEditor";
 import { stripHtml } from "string-strip-html";
-import { AboutUrlRoute } from "../../utils/urlsRouter";
 interface Props {}
 
 function AboutPage({}: Props): ReactElement {

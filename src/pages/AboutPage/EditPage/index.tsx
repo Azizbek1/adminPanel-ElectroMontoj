@@ -3,7 +3,6 @@ import React, { ReactElement } from "react";
 import EditNewsStyle from "../Style";
 import {
   Controller,
-  SubmitHandler,
   useForm,
   useFormState,
 } from "react-hook-form";

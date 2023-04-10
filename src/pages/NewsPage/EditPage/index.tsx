@@ -1,10 +1,9 @@
 import { LoadingButton } from "@mui/lab";
-import { TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import React, { ReactElement } from "react";
 import EditNewsStyle from "../Style";
 import {
   Controller,
-  SubmitHandler,
   useForm,
   useFormState,
 } from "react-hook-form";
@@ -17,7 +16,6 @@ import { NewsService } from "../../../services/news/news.service";
 import { INewsAdd } from "../News.props";
 import TextEditor from "../../../components/TextEditor/TextEditor";
 import { stripHtml } from "string-strip-html";
-import { Button } from "antd";
 
 function EditPageNews(): ReactElement {
   const { handleSubmit, control, reset } = useForm<INewsAdd>();
@@ -87,7 +85,7 @@ function EditPageNews(): ReactElement {
           )}
           rules={{
             validate: {
-              required: (v) =>
+              required: (v: any) =>
                 (v && stripHtml(v).result.length > 0) ||
                 "Description is required!",
             },
