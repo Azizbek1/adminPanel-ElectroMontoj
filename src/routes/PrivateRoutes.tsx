@@ -1,6 +1,8 @@
 import React from "react";
 
 import { IRoutes } from "../types/Types.Route";
+import PortFolioPage from "../pages/PortfolioPage";
+import EditPortfolio from "../pages/PortfolioPage/EditPage";
 const NoutFound = React.lazy(() => import("../pages/NoutFound"));
 const UslugiPage = React.lazy(() => import("../pages/UslugiPage"));
 const UslugiEditPage = React.lazy(() => import("../pages/UslugiPage/EditPage"));
@@ -27,6 +29,16 @@ const PrivateRoute: IRoutes[] = [
     path: "/uslugi/:id",
     component: <UslugiEditPage />,
     key: "UslugiPage",
+  },
+  {
+    path: "/portfolio",
+    component: <PortFolioPage />,
+    key: "PortFolioPage",
+  },
+  {
+    path: "/portfolio/:id",
+    component: <EditPortfolio />,
+    key: "EditPortfolio",
   },
   {
     path: "*",
