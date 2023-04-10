@@ -1,5 +1,4 @@
 import { LoadingButton } from "@mui/lab";
-import { Button, TextField } from "@mui/material";
 import React, { ReactElement } from "react";
 import EditNewsStyle from "../Style";
 import {
@@ -11,40 +10,39 @@ import {
 import { useMutation, useQuery } from "react-query";
 import { toastr } from "react-redux-toastr";
 import { useNavigate, useParams } from "react-router-dom";
-import { UploadImage } from "../../../components";
+import { IAboutPort } from "../About.props";
+import { AboutService } from "../../../services/about/about.service";
 import { toastError } from "../../../settings/ToastReact/ToastReact";
-import { PrortFolioService } from "../../../services/portfolio/portfolio.service";
-import { INewsAdd } from "../../NewsPage/News.props";
+import { UploadImage } from "../../../components";
 import TextEditor from "../../../components/TextEditor/TextEditor";
 import { stripHtml } from "string-strip-html";
 
-function EditPortfolio(): ReactElement {
-  const { handleSubmit, control, reset } = useForm<INewsAdd>();
-  const { id } = useParams();
+function EditAboutPage(): ReactElement {
+  const { handleSubmit, control, reset } = useForm<IAboutPort>();
   const navigate = useNavigate();
+  const { id } = useParams();
   const { errors } = useFormState({
     control,
   });
   const { isLoading, data } = useQuery(
-    ["show portfolio"],
-    () => PrortFolioService.show(id),
+    ["show About"],
+    () => AboutService.show(id),
     {
-      onSuccess({ data }) {},
       onError(error) {
         toastError(error, "Get movie");
       },
     }
   );
   const { mutateAsync } = useMutation(
-    "update portfolio",
-    (data: any) => PrortFolioService.update(id, data),
+    "update About",
+    (data: any) => AboutService.update(data),
     {
       onError(error: any) {
         toastError(error, "Ошибка");
       },
       onSuccess() {
-        toastr.success("Новости", "Новости успешно редактирован");
-        navigate("/portfolio");
+        toastr.success("О нас", "О нас успешно редактирован");
+        navigate("/about");
       },
     }
   );
@@ -52,27 +50,9 @@ function EditPortfolio(): ReactElement {
     const { name, text, file } = data;
     await mutateAsync({ name, text, file });
   };
-  const goBack = () => navigate(-1);
   return (
     <EditNewsStyle>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Controller
-          control={control}
-          name="name"
-          render={({ field }) => (
-            <TextField
-              label="Добавить Загаловку"
-              onChange={(e) => field.onChange(e)}
-              value={field.value || data?.data?.data.name}
-              fullWidth={true}
-              size="small"
-              margin="normal"
-              className="auth-form__input"
-              error={!!errors?.name?.message}
-              helperText={errors?.name?.message}
-            />
-          )}
-        />
         <Controller
           name="text"
           control={control}
@@ -100,10 +80,10 @@ function EditPortfolio(): ReactElement {
           )}
         />
         <img
-          src={data?.data.data.file}
+          src={data?.data.data.url}
           alt="png"
           className="imageWidth"
-          style={{ width: "300px", height: "300px", marginTop: "20px" }}
+          style={{ borderRadius: "50%", width: "50px" }}
         />
         <LoadingButton
           type="submit"
@@ -117,12 +97,7 @@ function EditPortfolio(): ReactElement {
           Редактировать
         </LoadingButton>
       </form>
-      <div style={{ marginTop: "10px" }}>
-        <Button variant="outlined" color="error" onClick={goBack}>
-          Назад
-        </Button>
-      </div>
     </EditNewsStyle>
   );
 }
-export default EditPortfolio;
+export default EditAboutPage;

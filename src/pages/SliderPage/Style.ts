@@ -15,7 +15,7 @@ export default styled.div`
     color: white;
     display: inline-block;
   }
-  .image__colomns {
+  .image__colomns{
     width: 50px;
     height: 50px;
     border-radius: 50%;

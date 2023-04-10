@@ -1,7 +1,6 @@
 import { LoadingButton } from "@mui/lab";
-import { Button, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import React, { ReactElement } from "react";
-import EditNewsStyle from "../Style";
 import {
   Controller,
   SubmitHandler,
@@ -11,23 +10,21 @@ import {
 import { useMutation, useQuery } from "react-query";
 import { toastr } from "react-redux-toastr";
 import { useNavigate, useParams } from "react-router-dom";
-import { UploadImage } from "../../../components";
+import { ISliderAdd } from "../Slider.props";
+import { SlideService } from "../../../services/sliders/slide.service";
 import { toastError } from "../../../settings/ToastReact/ToastReact";
-import { PrortFolioService } from "../../../services/portfolio/portfolio.service";
-import { INewsAdd } from "../../NewsPage/News.props";
-import TextEditor from "../../../components/TextEditor/TextEditor";
-import { stripHtml } from "string-strip-html";
+import { UploadImage } from "../../../components";
 
-function EditPortfolio(): ReactElement {
-  const { handleSubmit, control, reset } = useForm<INewsAdd>();
+function EditPageSlide(): ReactElement {
+  const { handleSubmit, control, reset } = useForm<ISliderAdd>();
   const { id } = useParams();
   const navigate = useNavigate();
   const { errors } = useFormState({
     control,
   });
   const { isLoading, data } = useQuery(
-    ["show portfolio"],
-    () => PrortFolioService.show(id),
+    ["show menu"],
+    () => SlideService.show(id),
     {
       onSuccess({ data }) {},
       onError(error) {
@@ -36,25 +33,25 @@ function EditPortfolio(): ReactElement {
     }
   );
   const { mutateAsync } = useMutation(
-    "update portfolio",
-    (data: any) => PrortFolioService.update(id, data),
+    "create menu",
+    (data: any) => SlideService.update(id, data),
     {
       onError(error: any) {
         toastError(error, "Ошибка");
       },
       onSuccess() {
-        toastr.success("Новости", "Новости успешно редактирован");
-        navigate("/portfolio");
+        toastr.success("Слидер", "Слидер успешно редактирован");
+        navigate("/slider");
       },
     }
   );
   const onSubmit = async (data: any) => {
-    const { name, text, file } = data;
-    await mutateAsync({ name, text, file });
+    const { name, slogan, url } = data;
+    await mutateAsync({ name, slogan, url, show: true });
   };
-  const goBack = () => navigate(-1);
+  console.log(data);
   return (
-    <EditNewsStyle>
+    <div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Controller
           control={control}
@@ -74,36 +71,34 @@ function EditPortfolio(): ReactElement {
           )}
         />
         <Controller
-          name="text"
           control={control}
-          render={({ field: { value, onChange }, fieldState: { error } }) => (
-            <TextEditor
-              onChange={onChange}
-              error={error}
-              value={value || data?.data?.data.text}
-              placeholder="Editor"
+          name="slogan"
+          render={({ field }) => (
+            <TextField
+              label="Добавить текст"
+              onChange={(e) => field.onChange(e)}
+              value={field.value || data?.data?.data.slogan}
+              fullWidth={true}
+              size="small"
+              margin="normal"
+              className="auth-form__input"
+              error={!!errors?.slogan?.message}
+              helperText={errors?.slogan?.message}
             />
           )}
-          rules={{
-            validate: {
-              required: (v) =>
-                (v && stripHtml(v).result.length > 0) ||
-                "Description is required!",
-            },
-          }}
         />
         <Controller
           control={control}
-          name="file"
+          name="url"
           render={({ field }) => (
             <UploadImage onChange={(e) => field.onChange(e)} />
           )}
         />
         <img
-          src={data?.data.data.file}
+          src={data?.data.data.url}
           alt="png"
-          className="imageWidth"
-          style={{ width: "300px", height: "300px", marginTop: "20px" }}
+          className=""
+          style={{ width: "100px" }}
         />
         <LoadingButton
           type="submit"
@@ -117,12 +112,7 @@ function EditPortfolio(): ReactElement {
           Редактировать
         </LoadingButton>
       </form>
-      <div style={{ marginTop: "10px" }}>
-        <Button variant="outlined" color="error" onClick={goBack}>
-          Назад
-        </Button>
-      </div>
-    </EditNewsStyle>
+    </div>
   );
 }
-export default EditPortfolio;
+export default EditPageSlide;

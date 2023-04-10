@@ -38,7 +38,7 @@ export const items: MenuProps["items"] = [
   getItem("Главная страница", 1, <TeamOutlined />, null, [
     getItem("главная страница", "/", <AlignCenterOutlined />),
     getItem("слидер", "/slider", <FundViewOutlined />),
-    getItem("меню", "/menus", <TableOutlined />),
+    // getItem("меню", "/menus", <TableOutlined />),
   ]),
   getItem("о копмании", "/about", <StockOutlined />),
   getItem("Услуги", "/uslugi", <MdDataThresholding />),

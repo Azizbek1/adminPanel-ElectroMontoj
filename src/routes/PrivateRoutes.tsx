@@ -1,8 +1,12 @@
 import React from "react";
 
 import { IRoutes } from "../types/Types.Route";
-import PortFolioPage from "../pages/PortfolioPage";
-import EditPortfolio from "../pages/PortfolioPage/EditPage";
+const PortFolioPage = React.lazy(() => import("../pages/PortfolioPage"));
+const EditPortfolio = React.lazy(() => import("../pages/PortfolioPage/EditPage"));
+const AboutPage = React.lazy(() => import("../pages/AboutPage"));
+const EditAboutPage = React.lazy(() => import("../pages/AboutPage/EditPage"));
+const SliderPage = React.lazy(() => import("../pages/SliderPage"));
+const EditPageSlide = React.lazy(() => import("../pages/SliderPage/EditPage"));
 const NoutFound = React.lazy(() => import("../pages/NoutFound"));
 const UslugiPage = React.lazy(() => import("../pages/UslugiPage"));
 const UslugiEditPage = React.lazy(() => import("../pages/UslugiPage/EditPage"));
@@ -39,6 +43,26 @@ const PrivateRoute: IRoutes[] = [
     path: "/portfolio/:id",
     component: <EditPortfolio />,
     key: "EditPortfolio",
+  },
+  {
+    path: "/about",
+    component: <AboutPage />,
+    key: "AboutPage",
+  },
+  {
+    path: "/about/:id",
+    component: <EditAboutPage />,
+    key: "EditAboutPage",
+  },
+  {
+    path: "/slider",
+    component: <SliderPage />,
+    key: "SliderPage",
+  },
+  {
+    path: "/slider/:id",
+    component: <EditPageSlide />,
+    key: "EditPageSlide",
   },
   {
     path: "*",

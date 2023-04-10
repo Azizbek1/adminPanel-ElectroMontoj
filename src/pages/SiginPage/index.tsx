@@ -31,7 +31,7 @@ const SiginPage = () => {
         toastError(error, "Ошибка");
       },
       onSuccess() {
-        toastr.success("О нас", "О нас успешно добавлен");
+        toastr.success("Успесшно вошли", "Добро пожаловать");
       },
     }
   );

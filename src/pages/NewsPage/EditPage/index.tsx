@@ -1,7 +1,7 @@
 import { LoadingButton } from "@mui/lab";
 import { TextField } from "@mui/material";
 import React, { ReactElement } from "react";
-import EditNewsStyle from '../Style'
+import EditNewsStyle from "../Style";
 import {
   Controller,
   SubmitHandler,
@@ -15,7 +15,9 @@ import { UploadImage } from "../../../components";
 import { toastError } from "../../../settings/ToastReact/ToastReact";
 import { NewsService } from "../../../services/news/news.service";
 import { INewsAdd } from "../News.props";
-
+import TextEditor from "../../../components/TextEditor/TextEditor";
+import { stripHtml } from "string-strip-html";
+import { Button } from "antd";
 
 function EditPageNews(): ReactElement {
   const { handleSubmit, control, reset } = useForm<INewsAdd>();
@@ -49,8 +51,9 @@ function EditPageNews(): ReactElement {
   );
   const onSubmit = async (data: any) => {
     const { name, text, file } = data;
-    await mutateAsync({ name, text, file});
+    await mutateAsync({ name, text, file });
   };
+  const goBack = () => navigate(-1);
   return (
     <EditNewsStyle>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -72,21 +75,23 @@ function EditPageNews(): ReactElement {
           )}
         />
         <Controller
-          control={control}
           name="text"
-          render={({ field }) => (
-            <TextField
-              label="Добавить текст"
-              onChange={(e) => field.onChange(e)}
-              value={field.value || data?.data?.data.text}
-              fullWidth={true}
-              size="small"
-              margin="normal"
-              className="auth-form__input"
-              error={!!errors?.text?.message}
-              helperText={errors?.text?.message}
+          control={control}
+          render={({ field: { value, onChange }, fieldState: { error } }) => (
+            <TextEditor
+              onChange={onChange}
+              error={error}
+              value={value || data?.data?.data.text}
+              placeholder="Editor"
             />
           )}
+          rules={{
+            validate: {
+              required: (v) =>
+                (v && stripHtml(v).result.length > 0) ||
+                "Description is required!",
+            },
+          }}
         />
         <Controller
           control={control}
@@ -99,6 +104,7 @@ function EditPageNews(): ReactElement {
           src={data?.data.data.file}
           alt="png"
           className="imageWidth"
+          style={{ width: "300px", height: "300px", marginTop: "20px" }}
         />
         <LoadingButton
           type="submit"
@@ -112,6 +118,11 @@ function EditPageNews(): ReactElement {
           Редактировать
         </LoadingButton>
       </form>
+      <div style={{ marginTop: "10px" }}>
+        <Button variant="outlined" color="error" onClick={goBack}>
+          Назад
+        </Button>
+      </div>
     </EditNewsStyle>
   );
 }
