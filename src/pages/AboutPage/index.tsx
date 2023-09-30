@@ -19,9 +19,9 @@ import { toastError } from "../../settings/ToastReact/ToastReact";
 import { UploadImage } from "../../components";
 import TextEditor from "../../components/TextEditor/TextEditor";
 import { stripHtml } from "string-strip-html";
-interface Props {}
+interface Props { }
 
-function AboutPage({}: Props): ReactElement {
+function AboutPage({ }: Props): ReactElement {
   const { handleSubmit, control, reset } = useForm<IAboutPort>();
   const [searchTerm, setSearchTerm] = useState<string>("");
   const debouncedSearch = useDebounce(searchTerm, 500);
