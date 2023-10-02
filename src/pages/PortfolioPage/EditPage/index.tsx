@@ -29,7 +29,7 @@ function EditPortfolio(): ReactElement {
     ["show portfolio"],
     () => PrortFolioService.show(id),
     {
-      onSuccess({ data }) {},
+      onSuccess({ data }) { },
       onError(error) {
         toastError(error, "Get movie");
       },
