@@ -19,8 +19,8 @@ export const PrortFolioService = {
     return await api.get<any>(getPortUrl(`/index`), {
       params: searchTerm
         ? {
-            searchTerm,
-          }
+          searchTerm,
+        }
         : {},
     });
   },
